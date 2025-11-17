@@ -1,0 +1,42 @@
+name: Deploy Astro to GitHub Pages
+
+on:
+    # Triggers the workflow on pushes to the main branch
+    push:
+        branches: [main]
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Install dependencies and build site
+              # Step 1: Builds the site and installs Node dependencies
+              uses: withastro/action@v1
+
+            - name: Upload Pages artifact
+              # UPDATED: Changed version to v4 to fix deprecation error
+              uses: actions/upload-pages-artifact@v4
+              with:
+                  path: "./dist"
+
+    deploy:
+        # Step 3: Waits for build to finish, then deploys the artifact to GitHub Pages
+        needs: build
+        runs-on: ubuntu-latest
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
