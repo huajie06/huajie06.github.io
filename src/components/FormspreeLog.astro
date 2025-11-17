@@ -1,0 +1,142 @@
+---
+// Astro frontmatter: Define JavaScript/server-side variables here
+// CRUCIAL: Using the ID you provided.
+const formEndpoint = "https://formspree.io/f/xgvrdael";
+---
+
+<!-- This is the HTML template rendered by Astro -->
+<div class="bg-white p-8 rounded-xl shadow-2xl border border-gray-100 w-full max-w-xl mx-auto">
+    <h1 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">Log a Quick Idea</h1>
+    <p class="text-sm text-gray-500 mb-6 text-center">Your raw Markdown/Code will be safely submitted via AJAX to Formspree.</p>
+
+    <form id="idea-log-form" action={formEndpoint} method="POST" class="space-y-6">
+        <!-- Hidden field for tracking -->
+        <input type="hidden" name="Source" value="Astro Public Log Form" />
+
+        <!-- Email Field for verification -->
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Your Email *</label>
+            <input
+                type="email"
+                name="email"
+                id="email"
+                required
+                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-3 transition duration-150 ease-in-out border"
+                placeholder="your@email.com"
+            />
+        </div>
+
+        <!-- Title Field -->
+        <div>
+            <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Idea/Post Title (Optional)</label>
+            <input
+                type="text"
+                name="Title"
+                id="title"
+                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-3 transition duration-150 ease-in-out border"
+                placeholder="A new Go tutorial idea..."
+            />
+        </div>
+
+        <!-- Raw Content Textarea (Actual user input) -->
+        <div>
+            <label for="content-raw" class="block text-sm font-medium text-gray-700 mb-1">Raw Content (Markdown / Code) *</label>
+            <textarea
+                name="Content_Body_RAW"
+                id="content-raw"
+                rows="8"
+                required
+                class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-3 font-mono text-sm border"
+                placeholder="## Draft Content\n\nPlace your raw HTML code here, e.g., <div>...</div>. It will be encoded."></textarea>
+        </div>
+
+        <button
+            type="submit"
+            id="submit-button"
+            class="w-full py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out transform hover:scale-[1.01]"
+        >
+            Submit Raw Draft
+        </button>
+    </form>
+
+    <p id="submission-success" class="mt-4 text-sm text-center text-green-600 hidden">✅ Success! Content encoded and sent.</p>
+    <p id="submission-error" class="mt-4 text-sm text-center text-red-600 hidden">❌ Submission failed. See console for status code.</p>
+    <p id="submission-loading" class="mt-4 text-sm text-center text-indigo-600 hidden">Sending...</p>
+</div>
+
+<!-- Client-side JavaScript for handling submission, encoding, and status -->
+<script define:vars={{ formEndpoint }}>
+    // Ensure this script runs client-side (standard JS)
+    const form = document.getElementById("idea-log-form");
+    const rawContentArea = document.getElementById("content-raw");
+    const submitButton = document.getElementById("submit-button");
+    const successMessage = document.getElementById("submission-success");
+    const errorMessage = document.getElementById("submission-error");
+    const loadingMessage = document.getElementById("submission-loading");
+
+    // Function to HTML-encode the content
+    function htmlEncode(str) {
+        return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        // 1. Reset state and show loading
+        successMessage.classList.add("hidden");
+        errorMessage.classList.add("hidden");
+        loadingMessage.classList.remove("hidden");
+        submitButton.disabled = true;
+
+        try {
+            // 2. HTML-Encode the raw content input
+            const encodedContent = htmlEncode(rawContentArea.value);
+
+            // 3. Collect all form data
+            const formData = new FormData(form);
+
+            // Remove the raw content field and replace it with the encoded version
+            formData.delete("Content_Body_RAW");
+            formData.append("Content_Body", encodedContent);
+
+            // 4. Convert to URL-encoded format for POST request
+            const payload = new URLSearchParams(formData).toString();
+
+            const response = await fetch(formEndpoint, {
+                // Use the variable passed from Astro
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: payload,
+            });
+
+            // 5. Handle Formspree response
+            if (response.ok) {
+                successMessage.classList.remove("hidden");
+                form.reset();
+            } else {
+                const status = response.status;
+
+                console.error(`Formspree submission failed with status: ${status}`);
+
+                let displayMessage = `❌ Submission failed. Status ${status}.`;
+
+                if (status === 403) {
+                    displayMessage += " This likely means the form is unverified or the domain is blocked. You must submit this form from the live GitHub Pages URL to verify it.";
+                }
+
+                errorMessage.textContent = displayMessage;
+                errorMessage.classList.remove("hidden");
+            }
+        } catch (error) {
+            console.error("Network or unhandled JavaScript error:", error);
+            errorMessage.textContent = "❌ Network error. Please check your connection or deploy live.";
+            errorMessage.classList.remove("hidden");
+        } finally {
+            // 6. Restore button state
+            loadingMessage.classList.add("hidden");
+            submitButton.disabled = false;
+        }
+    });
+</script>

@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+import FormspreeLog from "../components/FormspreeLog.astro";
+---
+
+<Layout title="Log a New Idea" description="A private page to quickly log new blog post ideas and drafts.">
+    <main class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+            <header class="text-center mb-10">
+                <h1 class="text-4xl font-extrabold text-indigo-600">Idea Submission</h1>
+                <p class="mt-2 text-lg text-gray-600">Quickly log your drafts from anywhere.</p>
+                <p class="mt-1 text-sm text-gray-400">
+                    This page will be accessible at the path:
+                    <code class="bg-gray-200 p-1 rounded">/log-idea</code>
+                </p>
+            </header>
+
+            <!-- The form component goes here -->
+            <FormspreeLog client:load />
+        </div>
+    </main>
+</Layout>
