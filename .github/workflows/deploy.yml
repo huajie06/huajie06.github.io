@@ -21,7 +21,7 @@ jobs:
 
             - name: Install dependencies and build site
               # Step 1: Builds the site and installs Node dependencies
-              uses: withastro/action@v1
+              uses: withastro/action@v5
 
             - name: Upload Pages artifact
               # UPDATED: Changed version to v4 to fix deprecation error
