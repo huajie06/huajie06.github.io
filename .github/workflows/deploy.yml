@@ -25,7 +25,7 @@ jobs:
 
             - name: Upload Pages artifact
               # UPDATED: Changed version to v4 to fix deprecation error
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-pages-artifact@v4
               with:
                   path: "./dist"
 
