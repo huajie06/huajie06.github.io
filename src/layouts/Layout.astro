@@ -1,0 +1,27 @@
+---
+// 1. The Imports
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head> </head>
+
+    <body class="min-h-screen flex flex-col bg-bg-main text-text-main">
+        <Header />
+
+        <main class="flex-grow w-full max-w-3xl mx-auto px-6 py-8">
+            <slot />
+        </main>
+
+        <Footer />
+    </body>
+</html>
