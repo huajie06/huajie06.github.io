@@ -1,0 +1,40 @@
+---
+import Layout from "./Layout.astro";
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+    <article
+        class="prose prose-slate max-w-none
+      prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-brand-dark
+      prose-a:text-brand-DEFAULT hover:prose-a:text-brand-dark
+      prose-pre:bg-brand-dark prose-pre:border prose-pre:border-slate-700
+      prose-code:text-brand-DEFAULT prose-code:bg-blue-50 prose-code:px-1 prose-code:rounded-sm prose-code:font-normal before:prose-code:content-none after:prose-code:content-none"
+    >
+        <header class="not-prose mb-10 border-b border-slate-200 pb-8 text-center max-w-2xl mx-auto">
+            <div class="flex items-center justify-center gap-2 text-xs font-mono text-text-muted mb-4">
+                <span>{frontmatter.pubDate.toISOString().slice(0, 10)}</span>
+
+                {
+                    frontmatter.tags && (
+                        <>
+                            <span class="text-slate-300">/</span>
+                            <span class="text-brand-DEFAULT">{frontmatter.tags[0]}</span>
+                        </>
+                    )
+                }
+            </div>
+
+            <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-brand-dark mb-4">
+                {frontmatter.title}
+            </h1>
+
+            <p class="text-lg text-text-muted leading-relaxed">
+                {frontmatter.description}
+            </p>
+        </header>
+
+        <slot />
+    </article>
+</Layout>

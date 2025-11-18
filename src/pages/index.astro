@@ -1,49 +1,51 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Layout from '../layouts/Layout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+// 1. Get all posts from src/content/blog/
+const posts = await getCollection('blog');
+
+// 2. Sort by date (Newest first)
+const sortedPosts = posts.sort((a, b) => 
+    b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout title="Home | Minimalist">
+  <section class="mb-16 pt-8">
+    <h1 class="text-4xl font-bold tracking-tight text-brand-dark mb-4">
+      Hello, I'm Alex.
+    </h1>
+    <p class="text-lg text-text-muted leading-relaxed max-w-xl">
+      I am a Data Scientist and Engineer interested in distributed systems. 
+      Currently building efficient pipelines with <span class="text-brand-DEFAULT font-medium">Python</span> and <span class="text-brand-DEFAULT font-medium">Go</span>.
+    </p>
+    
+    <div class="mt-6 flex gap-4">
+        <a href="/blog" class="text-sm font-medium text-text-main border-b border-slate-300 hover:border-brand-DEFAULT transition-colors">Read my notes</a>
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-text-muted hover:text-brand-DEFAULT transition-colors">Github &rarr;</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="flex items-baseline justify-between mb-8 border-b border-slate-200 pb-2">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">Recent Writing</h2>
+    </div>
+
+    <div class="space-y-2">
+      {sortedPosts.map((post) => (
+        <PostCard 
+            title={post.data.title} 
+            /* Format date to YYYY-MM-DD */
+            date={post.data.pubDate.toISOString().slice(0, 10)}
+            desc={post.data.description}
+            /* Handle optional tags safely */
+            tags={post.data.tags || []}
+            /* Construct URL using the root slug property */
+            url={`/blog/${post.id}`} 
+        />
+      ))}
+    </div>
+  </section>
+</Layout>

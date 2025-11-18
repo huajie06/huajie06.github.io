@@ -1,0 +1,32 @@
+---
+interface Props {
+    title: string;
+    date: string;
+    desc: string;
+    tags: string[];
+    url: string;
+}
+
+const { title, date, desc, tags, url } = Astro.props;
+---
+
+<article class="group relative flex flex-col items-start mb-8">
+    <div class="flex items-center gap-x-3 text-xs mb-2">
+        <time class="font-mono text-text-muted">{date}</time>
+        <span class="w-1 h-1 rounded-full bg-slate-300"></span>
+        <div class="flex gap-2">
+            {tags.map((tag) => <span class="text-brand-DEFAULT font-medium bg-blue-50 px-1.5 py-0.5 rounded">{tag}</span>)}
+        </div>
+    </div>
+
+    <h3 class="text-xl font-semibold text-brand-dark group-hover:text-brand-DEFAULT transition-colors">
+        <a href={url}>
+            <span class="absolute -inset-y-4 -inset-x-4 md:-inset-x-6 sm:rounded-2xl group-hover:bg-white/60 group-hover:shadow-sm z-0 transition-all"></span>
+            <span class="relative z-10">{title}</span>
+        </a>
+    </h3>
+
+    <p class="relative z-10 mt-2 text-sm leading-relaxed text-text-muted max-w-2xl">
+        {desc}
+    </p>
+</article>
