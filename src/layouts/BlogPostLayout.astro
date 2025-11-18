@@ -6,9 +6,9 @@ const { frontmatter } = Astro.props;
 
 <Layout title={frontmatter.title}>
     <article
-        class="prose prose-slate max-w-none
+        class="mx-auto prose prose-slate max-w-2xl
       prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-brand-dark
-      prose-a:text-brand-DEFAULT hover:prose-a:text-brand-dark
+      prose-a:text-brand-DEFAULT hover:prose-a:text-branmx-auto d-dark
       prose-pre:bg-brand-dark prose-pre:border prose-pre:border-slate-700
       prose-code:text-brand-DEFAULT prose-code:bg-blue-50 prose-code:px-1 prose-code:rounded-sm prose-code:font-normal before:prose-code:content-none after:prose-code:content-none"
     >
@@ -17,10 +17,14 @@ const { frontmatter } = Astro.props;
                 <span>{frontmatter.pubDate.toISOString().slice(0, 10)}</span>
 
                 {
-                    frontmatter.tags && (
+                    frontmatter.tags && frontmatter.tags.length > 0 && (
                         <>
                             <span class="text-slate-300">/</span>
-                            <span class="text-brand-DEFAULT">{frontmatter.tags[0]}</span>
+                            <div class="flex gap-2">
+                                {frontmatter.tags.map((tag: string) => (
+                                    <span class="text-brand-DEFAULT bg-blue-50 px-1.5 py-0.5 rounded">#{tag}</span>
+                                ))}
+                            </div>
                         </>
                     )
                 }
