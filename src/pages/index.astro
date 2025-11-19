@@ -1,51 +1,41 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PostCard from '../components/PostCard.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import PostCard from "../components/PostCard.astro";
+import { getCollection } from "astro:content";
 
 // 1. Get all posts from src/content/blog/
-const posts = await getCollection('blog');
+const posts = await getCollection("blog");
 
 // 2. Sort by date (Newest first)
-const sortedPosts = posts.sort((a, b) => 
-    b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <Layout title="Home | Minimalist">
-  <section class="mb-16 pt-8">
-    <h1 class="text-4xl font-bold tracking-tight text-brand-dark mb-4">
-      Hi,
-    </h1>
-    <p class="text-lg text-text-muted leading-relaxed max-w-xl">
-      Places to keep some notes for myself.
-      Currently building efficient pipelines with <span class="text-brand-DEFAULT font-medium">Python</span> and <span class="text-brand-DEFAULT font-medium">Go</span>.
-    </p>
-    
-    <div class="mt-6 flex gap-4">
-        <a href="/blog" class="text-sm font-medium text-text-main border-b border-slate-300 hover:border-brand-DEFAULT transition-colors">Read my notes</a>
-        <a href="" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-text-muted hover:text-brand-DEFAULT transition-colors">Github &rarr;</a>
-    </div>
-  </section>
+    <section class="mb-16 pt-8">
+        <h1 class="text-4xl font-bold tracking-tight text-brand-dark mb-4">Hi,</h1>
+        <p class="text-lg text-text-muted leading-relaxed max-w-xl">
+            Places to keep some notes for myself. Currently building efficient pipelines with <span class="text-brand-DEFAULT font-medium">Python</span> and <span
+                class="text-brand-DEFAULT font-medium">Go</span
+            >.
+        </p>
 
-  <section>
-    <div class="flex items-baseline justify-between mb-8 border-b border-slate-200 pb-2">
-      <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">Recent Writing</h2>
-    </div>
+        <div class="mt-6 flex gap-4">
+            <a href="/blog" class="text-sm font-medium text-text-main border-b border-slate-300 hover:border-brand-DEFAULT transition-colors">Read my notes</a>
+            <a href="" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-text-muted hover:text-brand-DEFAULT transition-colors">Github &rarr;</a>
+        </div>
+    </section>
 
-    <div class="space-y-2">
-      {sortedPosts.map((post) => (
-        <PostCard 
-            title={post.data.title} 
-            /* Format date to YYYY-MM-DD */
-            date={post.data.pubDate.toISOString().slice(0, 10)}
-            desc={post.data.description}
-            /* Handle optional tags safely */
-            tags={post.data.tags || []}
-            /* Construct URL using the root slug property */
-            url={`/blog/${post.id}`} 
-        />
-      ))}
-    </div>
-  </section>
+    <section>
+        <div class="flex items-baseline justify-between mb-8 border-b border-slate-200 pb-2">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">Recent Writing</h2>
+        </div>
+
+        <div class="space-y-2">
+            {
+                sortedPosts.map((post) => (
+                    <PostCard title={post.data.title} date={post.data.pubDate.toISOString().slice(0, 10)} desc={post.data.description} tags={post.data.tags || []} url={`/blog/${post.id}`} />
+                ))
+            }
+        </div>
+    </section>
 </Layout>

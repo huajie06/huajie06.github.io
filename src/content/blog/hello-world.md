@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/BlogPostLayout.astro
 title: "Concurrency Patterns in Go"
 pubDate: "2025-11-17"
 description: "An analysis of Goroutines compared to Python's asyncio library."

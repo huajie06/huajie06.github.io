@@ -1,0 +1,39 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
+
+// 1. Extract tags safely (handling undefined) and sort them
+const tags = [...new Set(allPosts.flatMap((post) => post.data.tags || []))].sort();
+---
+
+<Layout title="Tags | Minimalist">
+    <section class="mb-16 pt-8">
+        <h1 class="text-4xl font-bold tracking-tight text-brand-dark mb-4">Tags</h1>
+        <p class="text-lg text-text-muted leading-relaxed max-w-xl">Browse all topics and categories.</p>
+
+        <div class="mt-6 flex gap-4">
+            <a href="/" class="text-sm font-medium text-text-main border-b border-slate-300 hover:border-brand-DEFAULT transition-colors"> &larr; Back Home </a>
+        </div>
+    </section>
+
+    <section>
+        <div class="flex items-baseline justify-between mb-8 border-b border-slate-200 pb-2">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">All Topics</h2>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+            {
+                tags.map((tag) => (
+                    <a
+                        href={`/tags/${tag}`}
+                        class="px-3 py-1 text-sm font-medium text-slate-600 border border-slate-200 rounded-full hover:text-brand-DEFAULT hover:border-brand-DEFAULT transition-colors bg-slate-50 hover:bg-white"
+                    >
+                        #{tag}
+                    </a>
+                ))
+            }
+        </div>
+    </section>
+</Layout>
