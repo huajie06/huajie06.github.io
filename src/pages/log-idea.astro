@@ -3,49 +3,126 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Contact | Minimalist">
-    <section class="pt-8 mb-12">
-        <h1 class="text-3xl font-bold tracking-tight text-brand-dark mb-4">Get in Touch</h1>
-        <p class="text-lg text-text-muted leading-relaxed max-w-xl">Have a question about a project or just want to say hi? Fill out the form below and I'll get back to you as soon as I can.</p>
-    </section>
+  <section class="pt-8 mb-12">
+    <h1 class="text-3xl font-bold tracking-tight text-brand-dark mb-4">Get in Touch</h1>
+    <p class="text-lg text-text-muted leading-relaxed max-w-xl">
+      Have a question about a project or just want to say hi? Fill out the form below and I'll get
+      back to you as soon as I can.
+    </p>
+  </section>
 
-    <section class="max-w-xl">
-        <form action="https://formspree.io/f/xgvrdael" method="POST" class="space-y-6">
-            <div>
-                <label for="name" class="block text-xs font-bold uppercase tracking-wider text-text-muted mb-2"> Your Name </label>
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    required
-                    class="w-full px-4 py-3 rounded-md border border-slate-200 bg-white text-text-main focus:outline-none focus:border-brand-DEFAULT focus:ring-1 focus:ring-brand-DEFAULT transition-all"
-                    placeholder="Jane Doe"
-                />
-            </div>
+  <section class="max-w-xl">
+    <!-- <form action="https://formspree.io/f/xgvrdael" method="POST" class="space-y-6"> -->
+    <form
+      target="_blank"
+      action="https://formsubmit.co/huajie06@gmail.com"
+      method="POST"
+      class="space-y-6"
+    >
+      <div>
+        <label
+          for="email"
+          class="block text-xs font-bold uppercase tracking-wider text-text-muted mb-2"
+        >
+          Email Address
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          required
+          class="w-full px-4 py-3 rounded-md border border-slate-200 bg-white text-text-main focus:outline-none focus:border-brand-DEFAULT focus:ring-1 focus:ring-brand-DEFAULT transition-all"
+          placeholder="jane@example.com"
+        />
+      </div>
 
-            <div>
-                <label for="email" class="block text-xs font-bold uppercase tracking-wider text-text-muted mb-2"> Email Address </label>
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    required
-                    class="w-full px-4 py-3 rounded-md border border-slate-200 bg-white text-text-main focus:outline-none focus:border-brand-DEFAULT focus:ring-1 focus:ring-brand-DEFAULT transition-all"
-                    placeholder="jane@example.com"
-                />
-            </div>
+      <div>
+        <label
+          for="message"
+          class="block text-xs font-bold uppercase tracking-wider text-text-muted mb-2"
+        >
+          Message
+        </label>
+        <textarea
+          name="message"
+          id="message"
+          rows="5"
+          required
+          class="w-full px-4 py-3 rounded-md border border-slate-200 bg-white text-text-main focus:outline-none focus:border-brand-DEFAULT focus:ring-1 focus:ring-brand-DEFAULT transition-all resize-y"
+          placeholder="How can I help you?"></textarea>
+      </div>
 
-            <div>
-                <label for="message" class="block text-xs font-bold uppercase tracking-wider text-text-muted mb-2"> Message </label>
-                <textarea
-                    name="message"
-                    id="message"
-                    rows="5"
-                    required
-                    class="w-full px-4 py-3 rounded-md border border-slate-200 bg-white text-text-main focus:outline-none focus:border-brand-DEFAULT focus:ring-1 focus:ring-brand-DEFAULT transition-all resize-y"
-                    placeholder="How can I help you?"></textarea>
-            </div>
+      <button
+        type="submit"
+        class="px-6 py-3 bg-brand-dark text-white font-medium rounded-md hover:bg-brand-DEFAULT transition-colors duration-200 shadow-sm"
+      >
+        Send Message
+      </button>
+    </form>
+  </section>
 
-            <button type="submit" class="px-6 py-3 bg-brand-dark text-white font-medium rounded-md hover:bg-brand-DEFAULT transition-colors duration-200 shadow-sm"> Send Message </button>
-        </form>
-    </section>
+  <br />
+  <hr />
+  <br />
+
+  <section class="max-w-xl">
+    <form action="https://formspree.io/f/xgvrdael" method="POST" class="space-y-6">
+      <div>
+        <label
+          for="name"
+          class="block text-xs font-bold uppercase tracking-wider text-text-muted mb-2"
+        >
+          Your Name
+        </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          required
+          class="w-full px-4 py-3 rounded-md border border-slate-200 bg-white text-text-main focus:outline-none focus:border-brand-DEFAULT focus:ring-1 focus:ring-brand-DEFAULT transition-all"
+          placeholder="Jane Doe"
+        />
+      </div>
+
+      <div>
+        <label
+          for="email"
+          class="block text-xs font-bold uppercase tracking-wider text-text-muted mb-2"
+        >
+          Email Address
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          required
+          class="w-full px-4 py-3 rounded-md border border-slate-200 bg-white text-text-main focus:outline-none focus:border-brand-DEFAULT focus:ring-1 focus:ring-brand-DEFAULT transition-all"
+          placeholder="jane@example.com"
+        />
+      </div>
+
+      <div>
+        <label
+          for="message"
+          class="block text-xs font-bold uppercase tracking-wider text-text-muted mb-2"
+        >
+          Message
+        </label>
+        <textarea
+          name="message"
+          id="message"
+          rows="5"
+          required
+          class="w-full px-4 py-3 rounded-md border border-slate-200 bg-white text-text-main focus:outline-none focus:border-brand-DEFAULT focus:ring-1 focus:ring-brand-DEFAULT transition-all resize-y"
+          placeholder="How can I help you?"></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="px-6 py-3 bg-brand-dark text-white font-medium rounded-md hover:bg-brand-DEFAULT transition-colors duration-200 shadow-sm"
+      >
+        Send Message
+      </button>
+    </form>
+  </section>
 </Layout>
