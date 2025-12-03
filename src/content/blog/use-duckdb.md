@@ -10,6 +10,8 @@ Frequently I am using `pandas` and `polars` a lot, and memorying the syntax is n
 I see myself use `duckdb` in this way
 
 ```python
+import duckdb
+
 # create an empty connection and then just querying the table
 con = duckdb.connect()
 con.sql("SELECT * FROM 'taxi_2019_04.parquet' LIMIT 5").show()
