@@ -1,0 +1,55 @@
+---
+title: "Use Fedora 45 in 2025"
+pubDate: "2025-12-06"
+description: "First impression using Fedora after 10+ years"
+tags: ["linux", "fedora", "setup"]
+---
+import { Image } from 'astro:assets';
+import screen1 from '../../assets/Screenshot_20251206_214619-2.png';
+import screen2 from '../../assets/Screenshot_20251206_215401.png';
+
+My first time using Linux was back in college, and then briefly in grad school. I was mostly using Ubuntu and tried some other distros like Fedora, Debian, Linux Mint, and SUSE, plus others I don't really remember.
+
+My impression back then was that it had all the necessary components for work, but it wasn't really good for "life." Things like taking screenshots, video calls, and gaming all sucked. I ended up sticking with Ubuntu mostly to run Emacs for my stats class homework. Honestly, it worked well for that, and even today, I still like using those tools on and off. There are a lot of good things there.
+
+It feels like out of nowhere, all of a sudden I wanted to try to use Linux again. Over the years, I have kept a dual-boot Windows laptop running Ubuntu, and a Mac for work. So this time, I wanted to use something I liked 10 years ago. Funny enough, it's mostly because of the color and aesthetics.
+
+{/* Gallery with Captions */}
+<div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 2rem 0; justify-content: center;">
+  
+  <figure style="margin: 0; display: flex; flex-direction: column; align-items: center; width: 300px;">
+    <a href={screen1.src} target="_blank">
+      <Image 
+        src={screen1} 
+        alt="Fedora Desktop View 1" 
+        width={300} 
+        style="border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);" 
+      />
+    </a>
+    <figcaption style="font-size: 0.85rem; color: #666; margin-top: 0.5rem; text-align: center;">
+      Clean desktop view
+    </figcaption>
+  </figure>
+
+  <figure style="margin: 0; display: flex; flex-direction: column; align-items: center; width: 300px;">
+    <a href={screen2.src} target="_blank">
+      <Image 
+        src={screen2} 
+        alt="Fedora Desktop View 2" 
+        width={300} 
+        style="border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);" 
+      />
+    </a>
+    <figcaption style="font-size: 0.85rem; color: #666; margin-top: 0.5rem; text-align: center;">
+      This is what it looks like after the setup
+    </figcaption>
+  </figure>
+
+</div>
+
+
+It took me only a few hours on a Saturday morning, and I feel I got everything I needed - a stark contrast to the troubleshooting marathons of 2015.
+
+I decided to go with **Fedora 45 (KDE Spin)**. Unlike the GNOME desktop I used back in college, KDE feels snappy and gives me that granular control over colors and window rules that I missed on macOS. The biggest surprise was the "life" stuff: I connected my Bluetooth headphones and hopped on a video call without a single driver error. Even taking the screenshots for this post using Spectacle felt faster than my workflow on a Mac.
+
+Setting up my dev environment was surprisingly boring (in a good way). I installed VS Code, Neovim, and my Python data stack, and everything just worked - no compilation errors or weird dependency hell. It all feels so natural and connected with my style. I'm curious to see if I'll hit any walls in a month, but for now, it's good to be back.
