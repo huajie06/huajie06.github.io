@@ -2,7 +2,7 @@
 title: "Concurrency Patterns in Go"
 pubDate: "2025-11-17"
 description: "An analysis of Goroutines compared to Python's asyncio library."
-tags: ["Go", "Engineering"]
+tags: ["go", "engineering"]
 ---
 
 When switching from Python to Go, the most immediate paradigm shift is handling concurrency. While Python relies on `asyncio`, Go utilizes the power of Channels.

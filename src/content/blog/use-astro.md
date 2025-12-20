@@ -2,7 +2,7 @@
 title: Use Astro as static site generator
 pubDate: "2025-11-17"
 description: "Experience Astro."
-tags: ["Astro"]
+tags: ["astro"]
 ---
 
 Using Astro was not a good start since I just try to get it up and running without trying to learn anything. However, things start to get clear after today I finally fell I got a hang of it.

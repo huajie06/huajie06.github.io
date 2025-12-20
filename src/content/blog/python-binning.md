@@ -2,7 +2,7 @@
 title: "Create equal-weight bins in Python using Numpy"
 pubDate: "2025-11-18"
 description: "Some recap after trying to create bins with weights in Polars"
-tags: ["Python", "Engineering"]
+tags: ["python", "engineering"]
 ---
 
 The problem is basically trying to create bins when you have two series (or two columns), and one of them is your weight.
