@@ -4,23 +4,23 @@ import PostCard from "../../components/PostCard.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-    const allPosts = await getCollection("blog");
+  const allPosts = await getCollection("blog");
 
-    // 1. Get all unique tags (using the TS fix we discussed)
-    const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags || []))];
+  // 1. Get all unique tags (using the TS fix we discussed)
+  const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags || []))];
 
-    // 2. Return paths and pass the filtered posts as props
-    return uniqueTags.map((tag) => {
-        const filteredPosts = allPosts
-            .filter((post) => post.data.tags && post.data.tags.includes(tag))
-            // Sort by date (Newest first), consistent with home page
-            .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  // 2. Return paths and pass the filtered posts as props
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts
+      .filter((post) => post.data.tags && post.data.tags.includes(tag))
+      // Sort by date (Newest first), consistent with home page
+      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-        return {
-            params: { tag },
-            props: { posts: filteredPosts },
-        };
-    });
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
 }
 
 const { tag } = Astro.params;
@@ -28,33 +28,49 @@ const { posts } = Astro.props;
 ---
 
 <Layout title={`#${tag} | Minimalist`}>
-    <section class="mb-16 pt-8">
-        <h1 class="text-4xl font-bold tracking-tight text-brand-dark mb-4">
-            <span class="text-brand-DEFAULT">#</span>{tag}
-        </h1>
+  <section class="mb-16 pt-8">
+    <h1 class="text-4xl font-bold tracking-tight text-brand-dark mb-4">
+      <span class="text-brand-DEFAULT">#</span>{tag}
+    </h1>
 
-        <p class="text-lg text-text-muted leading-relaxed max-w-xl">
-            Found <strong>{posts.length}</strong>
-            {posts.length === 1 ? "note" : "notes"} on this topic.
-        </p>
+    <p class="text-lg text-text-muted leading-relaxed max-w-xl">
+      Found <strong>{posts.length}</strong>
+      {posts.length === 1 ? "note" : "notes"} on this topic.
+    </p>
 
-        <div class="mt-6 flex gap-4">
-            <a href="/" class="text-sm font-medium text-text-main border-b border-slate-300 hover:border-brand-DEFAULT transition-colors"> &larr; Back Home </a>
-            <a href="/tags" class="text-sm font-medium text-text-muted hover:text-brand-DEFAULT transition-colors"> View All Tags </a>
-        </div>
-    </section>
+    <div class="mt-6 flex gap-4">
+      <a
+        href="/"
+        class="text-sm font-medium text-text-main border-b border-slate-300 hover:border-brand-DEFAULT transition-colors"
+      >
+        &larr; Back Home
+      </a>
+      <a
+        href="/tags"
+        class="text-sm font-medium text-text-muted hover:text-brand-DEFAULT transition-colors"
+      >
+        View All Tags
+      </a>
+    </div>
+  </section>
 
-    <section>
-        <div class="flex items-baseline justify-between mb-8 border-b border-slate-200 pb-2">
-            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">Filtered Notes</h2>
-        </div>
+  <section>
+    <div class="flex items-baseline justify-between mb-8 border-b border-slate-200 pb-2">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">Filtered Notes</h2>
+    </div>
 
-        <div class="space-y-2">
-            {
-                posts.map((post) => (
-                    <PostCard title={post.data.title} date={post.data.pubDate.toISOString().slice(0, 10)} desc={post.data.description} tags={post.data.tags || []} url={`/blog/${post.id}`} />
-                ))
-            }
-        </div>
-    </section>
+    <div class="space-y-2">
+      {
+        posts.map((post) => (
+          <PostCard
+            title={post.data.title}
+            date={post.data.pubDate.toISOString().slice(0, 10)}
+            desc={post.data.description}
+            tags={post.data.tags || []}
+            url={`/blog/${post.slug}`}
+          />
+        ))
+      }
+    </div>
+  </section>
 </Layout>
