@@ -1,0 +1,41 @@
+# this is a data schema, used to vaildate the input datafile
+
+# it only have below elements
+# 1. existence, default = y, unless optional = true
+# 2. type match
+# 3. range for numerical values
+# 4. disallowed or allowed values - this can be a regex
+# 5. all other complex check will be dealt with separately
+
+schema:
+  u_id:
+    type: integer
+    # aliases: ["id", "user_id"]
+    range: [1, 200]
+
+  mssubclass_v1:
+    type: integer
+    aliases: ["mssubclass"]
+    allowed_value: [60, 20, 70, 80]
+
+  mszoning:
+    type: string
+    regex: "^[A-Z]+$"
+
+  lotfrontage:
+    type: float
+
+  lotarea:
+    type: float
+    range: [1, 220000]
+
+  street:
+    type: string
+    optional: true
+
+  lotshape:
+    type: string
+    not_allowed_value: ["IR3"]
+
+  typename:
+    type: string
