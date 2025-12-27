@@ -1,0 +1,41 @@
+columns:
+  user_id:
+    dtype: int
+    nullable: false
+    unique: true
+    range: [1, 20]
+
+  transaction_cat:
+    dtype: string
+    allowed_values: ["A", "B"]
+
+  unit_price:
+    dtype: float
+    min: 0.0
+
+  quantity:
+    dtype: int
+    max: 50
+
+  email_opt_in:
+    dtype: bool
+    nullable: false
+
+  col_v1:
+    dtype: string
+
+  # --- Derived Column Specs ---
+  total_amount:
+    dtype: float
+    description: "Net total after discount"
+
+  risk_level:
+    dtype: string
+    allowed_values: ["High", "Medium", "Low"]
+
+  days_active:
+    dtype: int
+    min: 0
+
+  # should_not_exist:
+  #   dtype: int

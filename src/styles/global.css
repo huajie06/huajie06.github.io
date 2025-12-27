@@ -40,3 +40,20 @@
     @apply bg-brand-DEFAULT text-white;
   }
 }
+
+/* target the wrapper class used by Expressive Code */
+.expressive-code {
+  width: min(800px, 95vw); /* Be wide up to 1000px, but never exceed 95% of screen */
+  margin-left: 50%;
+  transform: translateX(-50%);
+  
+  /* Reset tailwind prose margins that might interfere */
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
+/* Ensure long lines scroll instead of wrapping */
+.expressive-code pre {
+  white-space: pre !important;
+  overflow-x: auto !important;
+}

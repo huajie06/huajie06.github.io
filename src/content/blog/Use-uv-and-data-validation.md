@@ -1,5 +1,5 @@
 ---
-title: "Building a Lightweight Data Validation Pipeline with UV and Polars"
+title: "Part 1. Building a Lightweight Data Validation Pipeline with UV and Polars"
 pubDate: "2025-12-20"
 description: "How to ensure data quality in legacy systems using YAML-driven validation."
 tags: ["python", "data", "pipeline", "uv", "polars"]
